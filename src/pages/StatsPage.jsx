@@ -14,10 +14,10 @@ export default function StatsPage() {
   }
 
   function ratingLevel(rating) {
-    if (rating >= 1800) return { label: '高手', color: '#e74c3c' }
-    if (rating >= 1600) return { label: '进阶', color: '#f39c12' }
-    if (rating >= 1400) return { label: '中等', color: '#3498db' }
-    return { label: '初学', color: '#95a5a6' }
+    if (rating >= 1800) return { label: '高手', color: '#FF3B30' }
+    if (rating >= 1600) return { label: '进阶', color: '#FF9500' }
+    if (rating >= 1400) return { label: '中等', color: '#007AFF' }
+    return { label: '初学', color: '#8E8E93' }
   }
 
   return (
