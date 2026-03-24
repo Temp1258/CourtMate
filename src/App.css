@@ -775,3 +775,78 @@
   color: var(--text-secondary);
   margin-bottom: 8px;
 }
+
+/* === Sport Selector === */
+.sport-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.sport-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 4px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sport-btn.active {
+  border-color: var(--primary);
+  background: rgba(0, 122, 255, 0.08);
+}
+
+.sport-emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.sport-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.sport-btn.active .sport-name {
+  color: var(--primary);
+}
+
+/* === Result Toggle === */
+.result-toggle .win-active {
+  background: #34C759 !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+.result-toggle .tie-active {
+  background: #FF9500 !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+/* === Match date row with sport icon === */
+.match-date {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+/* === Draw badge in recent matches === */
+.draw .result-badge {
+  background: #FF9500;
+}
+
+/* === Score-less result text === */
+.result-text {
+  font-size: 14px;
+  font-weight: 600;
+}

@@ -59,7 +59,10 @@ export default function PlayersPage() {
               <span className="rank">{i + 1}</span>
               <span className="name">{p.name}</span>
               <span className="rating">{p.rating}</span>
-              <span className="record">{p.wins}{t.winSuffix} {p.losses}{t.lossSuffix}</span>
+              <span className="record">
+                {p.wins}{t.winSuffix} {p.losses}{t.lossSuffix}
+                {p.draws > 0 && ` ${p.draws}${t.drawSuffix}`}
+              </span>
               <span className="actions">
                 <button className="btn-del" onClick={() => handleDelete(p.id, p.name)}>{t.delete}</button>
               </span>

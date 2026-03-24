@@ -11,6 +11,13 @@ const translations = {
     tabRecord: '记录',
     tabStats: '统计',
 
+    // Sports
+    sport: '运动',
+    tennis: '网球',
+    badminton: '羽毛球',
+    basketball: '篮球',
+    football: '足球',
+
     // Players page
     playerManagement: '球员管理',
     enterPlayerName: '输入球员姓名',
@@ -25,6 +32,7 @@ const translations = {
     confirmDeletePlayer: (name) => `确定要删除 ${name} 吗？`,
     winSuffix: '胜',
     lossSuffix: '负',
+    drawSuffix: '平',
 
     // Matches page
     recordMatch: '记录比赛',
@@ -32,6 +40,7 @@ const translations = {
     type: '类型',
     singles: '单打',
     doubles: '双打',
+    team: '组队',
     date: '日期',
     team1: '队伍1',
     team2: '队伍2',
@@ -40,22 +49,33 @@ const translations = {
     selectPlayer: '选择球员',
     selectPartner: '选择搭档',
     score: '比分',
+    scoreOptional: '选填',
     submitMatch: '提交比赛',
     matchHistory: '比赛记录',
     noMatches: '暂无比赛记录',
     confirmDeleteMatch: '确定要删除这条比赛记录吗？',
     unknown: '未知',
     selectPlayers: '请选择球员',
-    selectPartners: '双打请选择搭档',
+    selectPartners: '请选择搭档',
     enterScore: '请输入比分',
     invalidScore: '比分无效',
-    scoreTied: '比分不能相同',
+    scoreTied: '该运动比分不能相同',
     duplicatePlayers: '不能选择重复的球员',
     matchRecorded: '比赛已记录！',
     rematch: '再来一局',
     emptyGuideTitle: '开始记录你的比赛吧',
     emptyGuideSub: '先添加球员，然后就可以开始记录比赛了',
     goAddPlayers: '去添加球员',
+
+    // Result / Winner
+    whoWon: '谁赢了？',
+    team1Won: '左边赢',
+    team2Won: '右边赢',
+    tied: '平局',
+    selectResult: '请选择比赛结果',
+    winLabel: '胜',
+    lossLabel: '负',
+    drawLabel: '平',
 
     // Stats page
     statistics: '数据统计',
@@ -64,6 +84,7 @@ const translations = {
     totalMatches: '总场次',
     win: '胜',
     loss: '负',
+    draw: '平',
     winRate: '胜率',
     partnerAnalysis: '对战 / 搭档分析',
     ratingLabel: '评分',
@@ -90,6 +111,13 @@ const translations = {
     tabRecord: 'Record',
     tabStats: 'Stats',
 
+    // Sports
+    sport: 'Sport',
+    tennis: 'Tennis',
+    badminton: 'Badminton',
+    basketball: 'Basketball',
+    football: 'Football',
+
     // Players page
     playerManagement: 'Players',
     enterPlayerName: 'Player name',
@@ -104,6 +132,7 @@ const translations = {
     confirmDeletePlayer: (name) => `Delete ${name}?`,
     winSuffix: 'W',
     lossSuffix: 'L',
+    drawSuffix: 'D',
 
     // Matches page
     recordMatch: 'Record Match',
@@ -111,6 +140,7 @@ const translations = {
     type: 'Type',
     singles: 'Singles',
     doubles: 'Doubles',
+    team: 'Team',
     date: 'Date',
     team1: 'Team 1',
     team2: 'Team 2',
@@ -119,6 +149,7 @@ const translations = {
     selectPlayer: 'Select player',
     selectPartner: 'Select partner',
     score: 'Score',
+    scoreOptional: 'Optional',
     submitMatch: 'Submit Match',
     matchHistory: 'Match History',
     noMatches: 'No matches recorded yet',
@@ -128,13 +159,23 @@ const translations = {
     selectPartners: 'Please select partners for doubles',
     enterScore: 'Please enter scores',
     invalidScore: 'Invalid score',
-    scoreTied: 'Scores cannot be tied',
+    scoreTied: 'Scores cannot be tied for this sport',
     duplicatePlayers: 'Cannot select duplicate players',
     matchRecorded: 'Match Recorded!',
     rematch: 'Rematch',
     emptyGuideTitle: 'Start tracking your matches',
     emptyGuideSub: 'Add players first, then you can record matches',
     goAddPlayers: 'Add Players',
+
+    // Result / Winner
+    whoWon: 'Who won?',
+    team1Won: 'Left Won',
+    team2Won: 'Right Won',
+    tied: 'Tie',
+    selectResult: 'Please select match result',
+    winLabel: 'W',
+    lossLabel: 'L',
+    drawLabel: 'D',
 
     // Stats page
     statistics: 'Statistics',
@@ -143,6 +184,7 @@ const translations = {
     totalMatches: 'Matches',
     win: 'W',
     loss: 'L',
+    draw: 'D',
     winRate: 'Win%',
     partnerAnalysis: 'Opponent / Partner Analysis',
     ratingLabel: 'Rating',

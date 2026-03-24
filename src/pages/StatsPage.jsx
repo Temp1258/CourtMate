@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { getPlayers, getPlayerStats, getPlayerById } from '../store.js'
 import { useI18n } from '../i18n.jsx'
 
+const SPORT_EMOJIS = { tennis: '🎾', badminton: '🏸', basketball: '🏀', football: '⚽' }
+
 export default function StatsPage() {
   const { t } = useI18n()
   const [players] = useState(getPlayers)
@@ -47,7 +49,7 @@ export default function StatsPage() {
             </div>
             <div className="stat-row">
               <div className="stat-item">
-                <span className="stat-value">{player.wins + player.losses}</span>
+                <span className="stat-value">{player.wins + player.losses + player.draws}</span>
                 <span className="stat-label">{t.totalMatches}</span>
               </div>
               <div className="stat-item">
@@ -58,8 +60,14 @@ export default function StatsPage() {
                 <span className="stat-value">{player.losses}</span>
                 <span className="stat-label">{t.loss}</span>
               </div>
+              {player.draws > 0 && (
+                <div className="stat-item">
+                  <span className="stat-value">{player.draws}</span>
+                  <span className="stat-label">{t.draw}</span>
+                </div>
+              )}
               <div className="stat-item">
-                <span className="stat-value">{winRate(player.wins, player.wins + player.losses)}</span>
+                <span className="stat-value">{winRate(player.wins, player.wins + player.losses + player.draws)}</span>
                 <span className="stat-label">{t.winRate}</span>
               </div>
             </div>
@@ -79,7 +87,10 @@ export default function StatsPage() {
                         <div className="partner-name">{partner.name}</div>
                         <div className="partner-rating">{t.ratingLabel} {partner.rating}</div>
                         <div className="partner-stats">
-                          <span>{s.wins}{t.winSuffix} {s.losses}{t.lossSuffix}</span>
+                          <span>
+                            {s.wins}{t.winSuffix} {s.losses}{t.lossSuffix}
+                            {s.draws > 0 && ` ${s.draws}${t.drawSuffix}`}
+                          </span>
                           <span className="partner-winrate">{t.winRate} {winRate(s.wins, s.total)}</span>
                         </div>
                         <div className="winrate-bar">
@@ -101,12 +112,17 @@ export default function StatsPage() {
                   .slice(0, 10)
                   .map(m => {
                     const onTeam1 = m.player1Id === selectedId || m.partner1Id === selectedId
-                    const won = onTeam1 ? m.score1 > m.score2 : m.score2 > m.score1
+                    const won = onTeam1 ? m.result === 'team1' : m.result === 'team2'
+                    const tied = m.result === 'tie'
                     return (
-                      <div key={m.id} className={`recent-match ${won ? 'win' : 'loss'}`}>
-                        <span className="result-badge">{won ? t.win : t.loss}</span>
+                      <div key={m.id} className={`recent-match ${won ? 'win' : tied ? 'draw' : 'loss'}`}>
+                        <span className="result-badge">
+                          {won ? t.win : tied ? t.draw : t.loss}
+                        </span>
                         <span className="match-info">
-                          {m.date} | {m.score1}:{m.score2} | {m.type === 'doubles' ? t.doubles : t.singles}
+                          {SPORT_EMOJIS[m.sport] || '🎾'} {m.date}
+                          {m.score1 != null && ` | ${m.score1}:${m.score2}`}
+                          {' | '}{m.type === 'doubles' ? t.doubles : m.type === 'team' ? t.team : t.singles}
                         </span>
                       </div>
                     )
@@ -121,7 +137,7 @@ export default function StatsPage() {
         <>
           <h3>{t.allRankings}</h3>
           <div className="ranking-list">
-            {[...players].sort((a, b) => b.rating - a.rating).map((p, i) => (
+            {sortedPlayers.map((p, i) => (
               <div key={p.id} className="ranking-row" onClick={() => setSelectedId(p.id)}>
                 <span className="rank">{i + 1}</span>
                 <span className="name">{p.name}</span>
