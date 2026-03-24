@@ -1,0 +1,670 @@
+/* === iOS-style App Shell === */
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  position: relative;
+}
+
+/* === Main scrollable area === */
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-top: var(--safe-top);
+  padding-bottom: calc(80px + var(--safe-bottom));
+}
+
+/* === iOS-style Bottom Tab Bar === */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  background: var(--card-bg);
+  border-top: 0.5px solid var(--border);
+  padding-bottom: var(--safe-bottom);
+  z-index: 100;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255,255,255,0.85);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tab-bar {
+    background: rgba(28,28,30,0.85);
+  }
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0 4px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 500;
+  gap: 2px;
+  transition: color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab-item svg {
+  width: 24px;
+  height: 24px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tab-item.active {
+  color: var(--primary);
+}
+
+/* === Page container === */
+.page {
+  padding: 16px;
+}
+
+.page-title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.37px;
+  margin-bottom: 16px;
+  padding-top: 8px;
+}
+
+.page h2 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.36px;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.page h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 24px 0 12px;
+  color: var(--text);
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 40px 20px;
+  font-size: 15px;
+}
+
+/* === iOS-style Card === */
+.ios-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+/* === Forms === */
+.add-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.add-form input {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 16px;
+}
+
+.add-form button, .btn-primary {
+  padding: 12px 20px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  font-size: 17px;
+  border-radius: var(--radius);
+}
+
+.btn-primary:active, .add-form button:active {
+  opacity: 0.7;
+}
+
+.btn-del {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 15px;
+  padding: 4px 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-row label {
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 50px;
+  color: var(--text-secondary);
+}
+
+.form-row select, .form-row input[type="date"] {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 16px;
+}
+
+/* === Toggle (iOS Segmented Control style) === */
+.toggle-group {
+  display: flex;
+  gap: 0;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 2px;
+  flex: 1;
+}
+
+.toggle-group button {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 7px;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggle-group button.active {
+  background: var(--card-bg);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* === Player list (iOS grouped table style) === */
+.player-list {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.list-header, .player-row {
+  display: grid;
+  grid-template-columns: 36px 1fr 60px 80px 48px;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: 15px;
+}
+
+.list-header {
+  color: var(--text-secondary);
+  font-size: 13px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.player-row {
+  border-bottom: 0.5px solid var(--border);
+}
+
+.player-row:last-child {
+  border-bottom: none;
+}
+
+.player-row .rank {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 17px;
+}
+
+.player-row .rating {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.player-row .record {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* === Match form === */
+.match-form {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.teams-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.team {
+  flex: 1;
+}
+
+.team h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.team select, .team input {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+}
+
+.vs {
+  padding-top: 32px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* === Match list === */
+.match-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+
+.match-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.match-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  gap: 8px;
+}
+
+.match-detail > span {
+  flex: 1;
+}
+
+.match-detail > span:last-child {
+  text-align: right;
+}
+
+.match-score {
+  text-align: center !important;
+  flex: 0 0 auto !important;
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.winner {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.match-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.match-type {
+  font-size: 12px;
+  background: var(--bg);
+  padding: 3px 10px;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* === Stats === */
+.stats-container {
+  margin-top: 12px;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.stat-card.highlight {
+  background: linear-gradient(135deg, #34C759, #28a745);
+  color: white;
+}
+
+.stat-card.highlight h3 {
+  color: white;
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.big-number {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.level-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+.level-badge.small {
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+.stat-row {
+  display: flex;
+  gap: 6px;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  background: rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 10px 4px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  display: block;
+  font-size: 11px;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+/* === Partner analysis === */
+.partner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.partner-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.partner-name {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.partner-rating {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.partner-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.partner-winrate {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.winrate-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.winrate-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+/* === Recent matches === */
+.recent-matches {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.recent-match {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+  font-size: 14px;
+}
+
+.recent-match:last-child {
+  border-bottom: none;
+}
+
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.win .result-badge {
+  background: var(--primary);
+}
+
+.loss .result-badge {
+  background: var(--danger);
+}
+
+.match-info {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* === Ranking === */
+.ranking-list {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.ranking-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ranking-row:last-child {
+  border-bottom: none;
+}
+
+.ranking-row:active {
+  background: var(--bg);
+}
+
+.ranking-row .rank {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: var(--bg);
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.ranking-row .name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.ranking-row .rating {
+  font-weight: 700;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* === Settings === */
+.settings-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.settings-label {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.lang-toggle {
+  display: flex;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.lang-toggle button {
+  padding: 6px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lang-toggle button.active {
+  background: var(--card-bg);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .lang-toggle button.active {
+    background: var(--border);
+  }
+}
+
+.about-card {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--text-secondary);
+}
+
+.about-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.about-subtitle {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.about-version {
+  font-size: 13px;
+}

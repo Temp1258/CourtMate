@@ -1,61 +1,24 @@
-# VidEcho
+# 拍档 CourtMate
 
-# 听写 · 视频音频转文字工具
+Tennis match tracking & skill rating app for iOS.
+网球战绩追踪与水平评估，帮助球友了解自己的真实水平。
 
-## 📌 项目简介
-“听写” 是一款中英文兼容的视频音频转文字工具。用户可上传视频链接（支持 Bilibili、小红书）或本地 `.mp4` 文件，系统将自动提取视频音频并将其内容转写为文字。转写结果会以 `.txt` 格式保存，供用户查看和下载，所有文件在生成 15 天后自动删除，保障隐私与存储效率。
+## Features / 功能
 
----
+- **Player Management / 球员管理** - Add and manage players
+- **Match Recording / 比赛记录** - Record singles & doubles results
+- **ELO Rating / ELO评分** - Auto-calculated skill ratings
+- **Partner Analysis / 搭档分析** - Win rates with different partners
+- **Leaderboard / 排行榜** - Player rankings
 
-## 🎯 核心功能
+## Run / 运行
 
-### 🎥 视频输入
-- **链接上传**：支持用户提交 Bilibili / 小红书的视频链接（需具备抓取能力）
-- **文件上传**：支持上传本地 `.mp4` 视频文件（最大支持 xxxMB）
+```bash
+npm install
+npm run dev
+```
 
-### 🎧 音频处理
-- 自动从视频中提取音频流
-- 自动识别中文与英文语音（双语兼容）
-- 输出清晰可读的文字内容（包括时间顺序）
+## Tech Stack / 技术栈
 
-### 📄 文本输出
-- 自动生成 `.txt` 文件并提供下载
-- 每份文本保留 15 天，定期自动清除过期文件
-
----
-
-## 🛠️ 技术实现建议
-
-### 后端：
-- 使用 `ffmpeg` 提取音频流
-- 使用 `whisper` 模型（如 OpenAI Whisper 或 FasterWhisper）进行语音识别
-- 使用 `Flask` 或 `FastAPI` 搭建 API 服务
-- 存储系统：本地文件夹或 S3 + 定时清理脚本（如 cron + Python 定期任务）
-- 数据管理建议使用 SQLite / PostgreSQL 记录文件元信息及过期时间
-
-### 前端：
-- 提供上传链接与上传文件的 UI 界面（React / Vue）
-- 展示生成的文本内容与下载链接
-- 文件剩余保存时间提示功能
-
----
-
-## ✅ 项目要求
-
-1. **中英文双语识别必须准确率较高，必要时支持模型微调**
-2. **接口要稳定、响应时间可接受（<30s/分钟视频）**
-3. **清除机制要可靠，不能占用过多存储资源**
-4. **项目支持多用户同时使用，需支持并发访问处理队列**
-
----
-
-## 📌 后续可扩展功能（非必须）：
-- 文本高亮关键词
-- 视频自动分段转写
-- 可选字幕 `.srt` 文件导出
-- 微信/邮箱通知转写完成
-- 登录用户的文件管理后台
-
----
-
-欢迎对本项目做出贡献！🚀
+React + Vite PWA, data stored in browser localStorage.
+Supports Chinese/English language switching.

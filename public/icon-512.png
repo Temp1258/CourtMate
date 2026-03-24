@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#2ecc71"/>
+  <circle cx="256" cy="230" r="110" fill="none" stroke="white" stroke-width="14"/>
+  <line x1="146" y1="230" x2="366" y2="230" stroke="white" stroke-width="8"/>
+  <path d="M256 120 Q256 230 256 340" fill="none" stroke="white" stroke-width="8"/>
+  <path d="M170 148 Q256 190 342 148" fill="none" stroke="white" stroke-width="6"/>
+  <path d="M170 312 Q256 270 342 312" fill="none" stroke="white" stroke-width="6"/>
+  <text x="256" y="440" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="60" font-weight="bold">Tennis</text>
+</svg>
