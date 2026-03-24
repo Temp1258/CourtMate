@@ -5,7 +5,8 @@ import { useI18n } from '../i18n.jsx'
 export default function StatsPage() {
   const { t } = useI18n()
   const [players] = useState(getPlayers)
-  const [selectedId, setSelectedId] = useState('')
+  const sortedPlayers = [...players].sort((a, b) => b.rating - a.rating)
+  const [selectedId, setSelectedId] = useState(() => sortedPlayers.length > 0 ? sortedPlayers[0].id : '')
 
   const stats = selectedId ? getPlayerStats(selectedId) : null
   const player = selectedId ? getPlayerById(selectedId) : null

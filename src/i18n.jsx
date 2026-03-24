@@ -51,6 +51,11 @@ const translations = {
     invalidScore: '比分无效',
     scoreTied: '比分不能相同',
     duplicatePlayers: '不能选择重复的球员',
+    matchRecorded: '比赛已记录！',
+    rematch: '再来一局',
+    emptyGuideTitle: '开始记录你的比赛吧',
+    emptyGuideSub: '先添加球员，然后就可以开始记录比赛了',
+    goAddPlayers: '去添加球员',
 
     // Stats page
     statistics: '数据统计',
@@ -125,6 +130,11 @@ const translations = {
     invalidScore: 'Invalid score',
     scoreTied: 'Scores cannot be tied',
     duplicatePlayers: 'Cannot select duplicate players',
+    matchRecorded: 'Match Recorded!',
+    rematch: 'Rematch',
+    emptyGuideTitle: 'Start tracking your matches',
+    emptyGuideSub: 'Add players first, then you can record matches',
+    goAddPlayers: 'Add Players',
 
     // Stats page
     statistics: 'Statistics',

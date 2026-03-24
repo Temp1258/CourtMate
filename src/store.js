@@ -64,9 +64,9 @@ export function addMatch(match) {
   saveMatches(matches)
 
   // Update ratings
-  updateRatings(newMatch)
+  const ratingChanges = updateRatings(newMatch)
 
-  return newMatch
+  return { match: newMatch, ratingChanges }
 }
 
 export function deleteMatch(id) {
@@ -85,6 +85,7 @@ function updateRatings(match) {
   const players = getPlayers()
   const isDoubles = match.type === 'doubles'
   const won1 = match.score1 > match.score2
+  const ratingChanges = {}
 
   if (isDoubles) {
     const team1 = [match.player1Id, match.partner1Id].filter(Boolean)
@@ -96,29 +97,37 @@ function updateRatings(match) {
     for (const pid of team1) {
       const p = players.find(x => x.id === pid)
       if (p) {
+        const oldRating = p.rating
         p.rating = Math.round(p.rating + K_FACTOR * ((won1 ? 1 : 0) - e1))
         if (won1) p.wins++; else p.losses++
+        ratingChanges[pid] = { name: p.name, oldRating, newRating: p.rating, diff: p.rating - oldRating }
       }
     }
     for (const pid of team2) {
       const p = players.find(x => x.id === pid)
       if (p) {
+        const oldRating = p.rating
         p.rating = Math.round(p.rating + K_FACTOR * ((won1 ? 0 : 1) - (1 - e1)))
         if (!won1) p.wins++; else p.losses++
+        ratingChanges[pid] = { name: p.name, oldRating, newRating: p.rating, diff: p.rating - oldRating }
       }
     }
   } else {
     const p1 = players.find(x => x.id === match.player1Id)
     const p2 = players.find(x => x.id === match.player2Id)
     if (p1 && p2) {
+      const old1 = p1.rating, old2 = p2.rating
       const e1 = expectedScore(p1.rating, p2.rating)
       p1.rating = Math.round(p1.rating + K_FACTOR * ((won1 ? 1 : 0) - e1))
       p2.rating = Math.round(p2.rating + K_FACTOR * ((won1 ? 0 : 1) - (1 - e1)))
       if (won1) { p1.wins++; p2.losses++ } else { p2.wins++; p1.losses++ }
+      ratingChanges[p1.id] = { name: p1.name, oldRating: old1, newRating: p1.rating, diff: p1.rating - old1 }
+      ratingChanges[p2.id] = { name: p2.name, oldRating: old2, newRating: p2.rating, diff: p2.rating - old2 }
     }
   }
 
   savePlayers(players)
+  return ratingChanges
 }
 
 function avgRating(players, ids) {
