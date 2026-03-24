@@ -8,9 +8,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: '网球搭档 - 战绩追踪',
-        short_name: '网球搭档',
-        description: '网球比赛记录与水平评估工具',
+        name: '拍档 CourtMate',
+        short_name: '拍档',
+        description: 'Tennis match tracking & skill rating',
         theme_color: '#2ecc71',
         background_color: '#f5f7fa',
         display: 'standalone',

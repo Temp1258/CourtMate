@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { getPlayers, addPlayer, deletePlayer } from '../store.js'
+import { useI18n } from '../i18n.jsx'
 
 export default function PlayersPage() {
+  const { t } = useI18n()
   const [players, setPlayers] = useState(getPlayers)
   const [name, setName] = useState('')
 
@@ -11,7 +13,7 @@ export default function PlayersPage() {
     if (!trimmed) return
     const result = addPlayer(trimmed)
     if (!result) {
-      alert('该球员已存在')
+      alert(t.playerExists)
       return
     }
     setPlayers(getPlayers())
@@ -19,7 +21,7 @@ export default function PlayersPage() {
   }
 
   function handleDelete(id, playerName) {
-    if (!confirm(`确定要删除 ${playerName} 吗？`)) return
+    if (!confirm(t.confirmDeletePlayer(playerName))) return
     deletePlayer(id)
     setPlayers(getPlayers())
   }
@@ -28,28 +30,28 @@ export default function PlayersPage() {
 
   return (
     <div className="page">
-      <h2>球员管理</h2>
+      <h2>{t.playerManagement}</h2>
 
       <form className="add-form" onSubmit={handleAdd}>
         <input
           type="text"
-          placeholder="输入球员姓名"
+          placeholder={t.enterPlayerName}
           value={name}
           onChange={e => setName(e.target.value)}
           maxLength={20}
         />
-        <button type="submit">添加</button>
+        <button type="submit">{t.add}</button>
       </form>
 
       {sorted.length === 0 ? (
-        <p className="empty">还没有球员，请先添加</p>
+        <p className="empty">{t.noPlayersYet}</p>
       ) : (
         <div className="player-list">
           <div className="list-header">
-            <span className="rank">#</span>
-            <span className="name">姓名</span>
-            <span className="rating">评分</span>
-            <span className="record">战绩</span>
+            <span className="rank">{t.rank}</span>
+            <span className="name">{t.name}</span>
+            <span className="rating">{t.rating}</span>
+            <span className="record">{t.record}</span>
             <span className="actions"></span>
           </div>
           {sorted.map((p, i) => (
@@ -57,9 +59,9 @@ export default function PlayersPage() {
               <span className="rank">{i + 1}</span>
               <span className="name">{p.name}</span>
               <span className="rating">{p.rating}</span>
-              <span className="record">{p.wins}胜 {p.losses}负</span>
+              <span className="record">{p.wins}{t.winSuffix} {p.losses}{t.lossSuffix}</span>
               <span className="actions">
-                <button className="btn-del" onClick={() => handleDelete(p.id, p.name)}>删除</button>
+                <button className="btn-del" onClick={() => handleDelete(p.id, p.name)}>{t.delete}</button>
               </span>
             </div>
           ))}

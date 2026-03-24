@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { getPlayers, getMatches, addMatch, deleteMatch, getPlayerById } from '../store.js'
+import { useI18n } from '../i18n.jsx'
 
 export default function MatchesPage() {
+  const { t } = useI18n()
   const [matches, setMatches] = useState(getMatches)
   const [players] = useState(getPlayers)
   const [type, setType] = useState('singles')
@@ -15,19 +17,18 @@ export default function MatchesPage() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (!player1Id || !player2Id) { alert('请选择球员'); return }
-    if (type === 'doubles' && (!partner1Id || !partner2Id)) { alert('双打请选择搭档'); return }
-    if (score1 === '' || score2 === '') { alert('请输入比分'); return }
+    if (!player1Id || !player2Id) { alert(t.selectPlayers); return }
+    if (type === 'doubles' && (!partner1Id || !partner2Id)) { alert(t.selectPartners); return }
+    if (score1 === '' || score2 === '') { alert(t.enterScore); return }
 
     const s1 = parseInt(score1)
     const s2 = parseInt(score2)
-    if (isNaN(s1) || isNaN(s2) || s1 < 0 || s2 < 0) { alert('比分无效'); return }
-    if (s1 === s2) { alert('比分不能相同'); return }
+    if (isNaN(s1) || isNaN(s2) || s1 < 0 || s2 < 0) { alert(t.invalidScore); return }
+    if (s1 === s2) { alert(t.scoreTied); return }
 
-    // Check for duplicate players
     const allIds = [player1Id, player2Id]
     if (type === 'doubles') { allIds.push(partner1Id, partner2Id) }
-    if (new Set(allIds).size !== allIds.length) { alert('不能选择重复的球员'); return }
+    if (new Set(allIds).size !== allIds.length) { alert(t.duplicatePlayers); return }
 
     addMatch({
       type,
@@ -46,79 +47,79 @@ export default function MatchesPage() {
   }
 
   function handleDelete(id) {
-    if (!confirm('确定要删除这条比赛记录吗？')) return
+    if (!confirm(t.confirmDeleteMatch)) return
     deleteMatch(id)
     setMatches(getMatches())
   }
 
   function playerName(id) {
-    return getPlayerById(id)?.name || '未知'
+    return getPlayerById(id)?.name || t.unknown
   }
 
   const sortedMatches = [...matches].sort((a, b) => new Date(b.date) - new Date(a.date))
 
   return (
     <div className="page">
-      <h2>记录比赛</h2>
+      <h2>{t.recordMatch}</h2>
 
       {players.length < 2 ? (
-        <p className="empty">请先添加至少2名球员</p>
+        <p className="empty">{t.addMinPlayers}</p>
       ) : (
         <form className="match-form" onSubmit={handleSubmit}>
           <div className="form-row">
-            <label>类型</label>
+            <label>{t.type}</label>
             <div className="toggle-group">
-              <button type="button" className={type === 'singles' ? 'active' : ''} onClick={() => setType('singles')}>单打</button>
-              <button type="button" className={type === 'doubles' ? 'active' : ''} onClick={() => setType('doubles')}>双打</button>
+              <button type="button" className={type === 'singles' ? 'active' : ''} onClick={() => setType('singles')}>{t.singles}</button>
+              <button type="button" className={type === 'doubles' ? 'active' : ''} onClick={() => setType('doubles')}>{t.doubles}</button>
             </div>
           </div>
 
           <div className="form-row">
-            <label>日期</label>
+            <label>{t.date}</label>
             <input type="date" value={date} onChange={e => setDate(e.target.value)} />
           </div>
 
           <div className="teams-row">
             <div className="team">
-              <h4>{type === 'doubles' ? '队伍1' : '球员1'}</h4>
+              <h4>{type === 'doubles' ? t.team1 : t.player1}</h4>
               <select value={player1Id} onChange={e => setPlayer1Id(e.target.value)}>
-                <option value="">选择球员</option>
+                <option value="">{t.selectPlayer}</option>
                 {players.map(p => <option key={p.id} value={p.id}>{p.name} ({p.rating})</option>)}
               </select>
               {type === 'doubles' && (
                 <select value={partner1Id} onChange={e => setPartner1Id(e.target.value)}>
-                  <option value="">选择搭档</option>
+                  <option value="">{t.selectPartner}</option>
                   {players.map(p => <option key={p.id} value={p.id}>{p.name} ({p.rating})</option>)}
                 </select>
               )}
-              <input type="number" min="0" placeholder="比分" value={score1} onChange={e => setScore1(e.target.value)} />
+              <input type="number" min="0" placeholder={t.score} value={score1} onChange={e => setScore1(e.target.value)} />
             </div>
 
             <div className="vs">VS</div>
 
             <div className="team">
-              <h4>{type === 'doubles' ? '队伍2' : '球员2'}</h4>
+              <h4>{type === 'doubles' ? t.team2 : t.player2}</h4>
               <select value={player2Id} onChange={e => setPlayer2Id(e.target.value)}>
-                <option value="">选择球员</option>
+                <option value="">{t.selectPlayer}</option>
                 {players.map(p => <option key={p.id} value={p.id}>{p.name} ({p.rating})</option>)}
               </select>
               {type === 'doubles' && (
                 <select value={partner2Id} onChange={e => setPartner2Id(e.target.value)}>
-                  <option value="">选择搭档</option>
+                  <option value="">{t.selectPartner}</option>
                   {players.map(p => <option key={p.id} value={p.id}>{p.name} ({p.rating})</option>)}
                 </select>
               )}
-              <input type="number" min="0" placeholder="比分" value={score2} onChange={e => setScore2(e.target.value)} />
+              <input type="number" min="0" placeholder={t.score} value={score2} onChange={e => setScore2(e.target.value)} />
             </div>
           </div>
 
-          <button type="submit" className="btn-primary">提交比赛</button>
+          <button type="submit" className="btn-primary">{t.submitMatch}</button>
         </form>
       )}
 
-      <h3>比赛记录</h3>
+      <h3>{t.matchHistory}</h3>
       {sortedMatches.length === 0 ? (
-        <p className="empty">暂无比赛记录</p>
+        <p className="empty">{t.noMatches}</p>
       ) : (
         <div className="match-list">
           {sortedMatches.map(m => (
@@ -138,8 +139,8 @@ export default function MatchesPage() {
                 </span>
               </div>
               <div className="match-meta">
-                <span className="match-type">{m.type === 'doubles' ? '双打' : '单打'}</span>
-                <button className="btn-del" onClick={() => handleDelete(m.id)}>删除</button>
+                <span className="match-type">{m.type === 'doubles' ? t.doubles : t.singles}</span>
+                <button className="btn-del" onClick={() => handleDelete(m.id)}>{t.delete}</button>
               </div>
             </div>
           ))}

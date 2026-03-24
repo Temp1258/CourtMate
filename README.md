@@ -1,22 +1,24 @@
-# 网球搭档 - 战绩追踪 App
+# 拍档 CourtMate
 
-一个简洁的网球比赛记录与水平评估工具，帮助球友了解自己的真实水平。
+Tennis match tracking & skill rating app for iOS.
+网球战绩追踪与水平评估，帮助球友了解自己的真实水平。
 
-## 功能
+## Features / 功能
 
-- **球员管理** - 添加和管理球友
-- **比赛记录** - 记录单打/双打比赛结果
-- **ELO评分** - 自动计算每位球员的水平评分
-- **搭档分析** - 分析与不同搭档的胜率
-- **排行榜** - 查看所有球员的排名
+- **Player Management / 球员管理** - Add and manage players
+- **Match Recording / 比赛记录** - Record singles & doubles results
+- **ELO Rating / ELO评分** - Auto-calculated skill ratings
+- **Partner Analysis / 搭档分析** - Win rates with different partners
+- **Leaderboard / 排行榜** - Player rankings
 
-## 运行
+## Run / 运行
 
 ```bash
 npm install
 npm run dev
 ```
 
-## 技术栈
+## Tech Stack / 技术栈
 
-React + Vite，数据存储在浏览器 localStorage。
+React + Vite PWA, data stored in browser localStorage.
+Supports Chinese/English language switching.
